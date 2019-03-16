@@ -4,7 +4,7 @@ import com.atlassian.bitbucket.io.LineReader;
 import com.atlassian.bitbucket.io.LineReaderOutputHandler;
 import com.atlassian.bitbucket.scm.CommandInputHandler;
 import com.atlassian.bitbucket.scm.CommandOutputHandler;
-import com.atlassian.utils.process.IOUtils;
+import com.atlassian.bitbucket.util.
 import com.atlassian.utils.process.ProcessException;
 
 import java.io.IOException;

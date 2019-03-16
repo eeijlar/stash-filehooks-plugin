@@ -3,7 +3,8 @@ package org.christiangalsterer.stash.filehooks.plugin.hook;
 import com.atlassian.bitbucket.commit.Commit;
 import com.atlassian.bitbucket.commit.CommitRequest;
 import com.atlassian.bitbucket.commit.CommitService;
-import com.atlassian.bitbucket.scm.git.GitScmConfig;
+import com.atlassian.bitbucket.scm.Scm;
+import com.atlassian.bitbucket.scm.ScmCommandBuilder;
 import com.atlassian.bitbucket.scm.git.command.GitCommandBuilderFactory;
 import com.atlassian.bitbucket.scm.git.command.merge.GitMergeBaseBuilder;
 

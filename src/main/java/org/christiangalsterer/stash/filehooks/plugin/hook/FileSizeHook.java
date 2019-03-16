@@ -3,13 +3,18 @@ package org.christiangalsterer.stash.filehooks.plugin.hook;
 import com.atlassian.bitbucket.commit.Commit;
 import com.atlassian.bitbucket.content.Change;
 import com.atlassian.bitbucket.hook.HookResponse;
-import com.atlassian.bitbucket.hook.repository.PreReceiveRepositoryHook;
+import com.atlassian.bitbucket.hook.repository.PreRepositoryHook;
+import com.atlassian.bitbucket.hook.repository.PreRepositoryHookContext;
+import com.atlassian.bitbucket.hook.repository.RepositoryHook;
 import com.atlassian.bitbucket.hook.repository.RepositoryHookContext;
+import com.atlassian.bitbucket.hook.repository.RepositoryHookDetails;
+import com.atlassian.bitbucket.hook.repository.RepositoryHookRequest;
+import com.atlassian.bitbucket.hook.repository.RepositoryHookResult;
 import com.atlassian.bitbucket.repository.RefChange;
 import com.atlassian.bitbucket.repository.Repository;
 import com.atlassian.bitbucket.scm.Command;
 import com.atlassian.bitbucket.scm.PluginCommandBuilderFactory;
-import com.atlassian.bitbucket.scm.git.command.GitCommandBuilderFactory;
+import com.atlassian.bitbucket.scm.ScmCommandBuilder;
 import com.atlassian.bitbucket.setting.Settings;
 
 import javax.annotation.Nonnull;
@@ -25,7 +30,7 @@ import static org.christiangalsterer.stash.filehooks.plugin.hook.Predicates.matc
 /**
  * Checks the size of a file in the pre-receive phase and rejects the push when the changeset contains files which exceed the configured file size limit.
  */
-public class FileSizeHook implements PreReceiveRepositoryHook {
+public class FileSizeHook implements PreRepositoryHook {
 
     private static final int MAX_SETTINGS = 5;
     private static final String SETTINGS_INCLUDE_PATTERN_PREFIX = "pattern-";
@@ -36,14 +41,14 @@ public class FileSizeHook implements PreReceiveRepositoryHook {
     private final ChangesetService changesetService;
     private final PluginCommandBuilderFactory commandFactory;
 
-    public FileSizeHook(ChangesetService changesetService, GitCommandBuilderFactory commandFactory) {
+    public FileSizeHook(ChangesetService changesetService, ScmCommandBuilder commandFactory) {
         this.changesetService = changesetService;
         this.commandFactory = commandFactory;
     }
 
     @Override
-    public boolean onReceive(@Nonnull RepositoryHookContext context, @Nonnull Collection<RefChange> refChanges, @Nonnull HookResponse hookResponse) {
-        Repository repository = context.getRepository();
+    public boolean onReceive(@Nonnull RepositoryHook context, @Nonnull Collection<RefChange> refChanges, @Nonnull HookResponse hookResponse) {
+        RepositoryHookDetails repository = context.getDetails();
         List<FileSizeHookSetting> settings = getSettings(context.getSettings());
 
         FlatteningCachingResolver<Commit, Change> changesByCommit = new FlatteningCachingResolver<>();
@@ -152,4 +157,10 @@ public class FileSizeHook implements PreReceiveRepositoryHook {
                 .filter(entry -> entry.getValue() != null)
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
+
+	@Override
+	public RepositoryHookResult preUpdate(PreRepositoryHookContext arg0, RepositoryHookRequest arg1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

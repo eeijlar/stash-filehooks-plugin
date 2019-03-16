@@ -1,18 +1,17 @@
 package org.christiangalsterer.stash.filehooks.plugin.hook;
 
-import com.atlassian.bitbucket.i18n.I18nService;
-import com.atlassian.bitbucket.repository.Repository;
-import com.atlassian.bitbucket.setting.RepositorySettingsValidator;
-import com.atlassian.bitbucket.setting.Settings;
-import com.atlassian.bitbucket.setting.SettingsValidationErrors;
-import com.google.common.base.Strings;
-
-import javax.annotation.Nonnull;
 import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
+import com.atlassian.bitbucket.i18n.I18nService;
+import com.atlassian.bitbucket.scope.Scope;
+import com.atlassian.bitbucket.setting.Settings;
+import com.atlassian.bitbucket.setting.SettingsValidationErrors;
+import com.atlassian.bitbucket.setting.SettingsValidator;
+import com.google.common.base.Strings;
 
-public class FileSizeHookValidator implements RepositorySettingsValidator {
+
+public class FileSizeHookValidator implements SettingsValidator {
 
     private static final int MAX_SETTINGS = 5;
     private static final String SETTINGS_INCLUDE_PATTERN_PREFIX = "pattern-";
@@ -27,7 +26,7 @@ public class FileSizeHookValidator implements RepositorySettingsValidator {
     }
 
     @Override
-    public void validate(@Nonnull Settings settings, @Nonnull SettingsValidationErrors errors, @Nonnull Repository repository) {
+    public void validate(Settings settings, SettingsValidationErrors errors, Scope scope) {
 
         int patternParams = 0;
 

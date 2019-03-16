@@ -2,10 +2,6 @@ package org.christiangalsterer.stash.filehooks.plugin.hook;
 
 import com.atlassian.bitbucket.content.Change;
 import com.atlassian.bitbucket.commit.Commit;
-import com.atlassian.bitbucket.commit.Changeset;
-import com.atlassian.bitbucket.repository.RefChange;
-import com.atlassian.bitbucket.repository.RefChangeType;
-
 import java.util.function.Function;
 
 class Functions {

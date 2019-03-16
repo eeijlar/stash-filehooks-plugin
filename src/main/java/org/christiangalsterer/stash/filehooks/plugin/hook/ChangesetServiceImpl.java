@@ -1,5 +1,15 @@
 package org.christiangalsterer.stash.filehooks.plugin.hook;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 import com.atlassian.bitbucket.commit.Changeset;
 import com.atlassian.bitbucket.commit.Commit;
 import com.atlassian.bitbucket.content.Change;
@@ -12,11 +22,7 @@ import com.atlassian.bitbucket.scm.ScmService;
 import com.atlassian.bitbucket.util.PageRequest;
 import com.atlassian.bitbucket.util.PageUtils;
 import com.atlassian.bitbucket.util.PagedIterable;
-import com.google.common.collect.Iterables;
-
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
+import com.google.common.util.*;
 
 public class ChangesetServiceImpl implements ChangesetService {
 
